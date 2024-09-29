@@ -20,6 +20,12 @@ const config: Config = {
     },
     extend: {
       colors: {
+        primaryColor: "#3C41E9",
+        secondaryColor: "#12A779",
+        tertiaryColor: "#FFA40A",
+        quaternaryColor: "#913AF6",
+        quinaryColor: "#427DDC",
+        textSecondary: "#919191",
         current: "currentColor",
         transparent: "transparent",
         white: "#FFFFFF",
@@ -382,6 +388,8 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('daisyui'),
+  ],
 };
 export default config;
