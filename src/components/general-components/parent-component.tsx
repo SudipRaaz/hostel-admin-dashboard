@@ -12,7 +12,7 @@ const RightDrawerToggle = () => {
 
     return (
         <div>
-            <SeatCard toggleDrawer={toggleDrawer} /> {isDrawerOpen && <RightDrawer />}
+            <SeatCard  /> {isDrawerOpen && <RightDrawer />}
             <RightDrawer children={<SeatCard />} />
         </div>
     );

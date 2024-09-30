@@ -1,9 +1,11 @@
+//@ts-nocheck
+
 "use client";
 import { getParticularRoomDetails } from '@/api/rooms/rooms-api';
 import { useRoomStore } from '@/api/rooms/roomStore';
 import { getUserDetails } from '@/api/user-management/users/users-api';
-import { RoomDetailsType } from '@/types/rooms';
 import { Button, Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import React from 'react';
 import { useState } from 'react'
 import { BsFillXCircleFill } from "react-icons/bs";
 
@@ -13,7 +15,10 @@ type childrenType = {
     dialogTitle?: string,
     getUserDetails?: any,
     email?: string,
-    roomId?: number
+    roomId?: number,
+    isAddRoomOrEditSeat?: boolean,
+    setIsRoomEditOrSeatEdit?: any
+    
 
 }
 
@@ -26,6 +31,7 @@ export default function Model1(props: childrenType) {
 
     function close() {
         setIsOpen(false)
+        props?.isAddRoomOrEditSeat && props?.setIsRoomEditOrSeatEdit(false)
 
     }
 
@@ -69,15 +75,13 @@ export default function Model1(props: childrenType) {
                                 <BsFillXCircleFill onClick={close} size={24} color='gray' className='cursor-pointer' />
 
                             </div>
-                            {props?.children}
-                            {/* <div className="mt-4">
-                                <Button
-                                    className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
-                                    onClick={close}
-                                >
-                                    Close
-                                </Button>
-                            </div> */}
+
+                            {React.Children.map(props.children, child => {
+                                if (React.isValidElement(child)) {
+                                    return React.cloneElement(child, { open, close });
+                                }
+                                return child;
+                            })}
                         </DialogPanel>
                     </div>
                 </div>

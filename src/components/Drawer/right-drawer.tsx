@@ -1,28 +1,38 @@
-import React, { ReactNode } from 'react';
+"use client";
+
+import { UseButtonStateStore } from '@/store/button-state-store';
+import React, { ReactNode, useEffect } from 'react';
+import Drawer from 'react-modern-drawer';
+import 'react-modern-drawer/dist/index.css';
 
 interface RightDrawerProps {
   children?: ReactNode;
+    isDrawerOpen?: boolean;
 }
 
-const RightDrawer: React.FC<RightDrawerProps> = (props) =>  {
+const RightDrawer: React.FC<RightDrawerProps> = ({ children , isDrawerOpen}) => {
+    const { setIsDrawerOpen}= UseButtonStateStore();
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen);
+    console.log('Drawer is open');
+  };
+
   return (
-    <div className="drawer drawer-end">
-  <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-  <div className="drawer-content">
-    {/* Page content here */}
-    <label htmlFor="my-drawer-4" className="drawer-button btn btn-primary">Open drawer</label>
-  </div>
-  <div className="drawer-side">
-    <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
-    <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-      {/* Sidebar content here */}
-      <li><a>Sidebar Item 1</a></li>
-      <li><a>Sidebar Item 2</a></li>
-    </ul>
-    {props.children}Í
-  </div>
-</div>
-  )
-}
+    <>
+      <Drawer
+        open={isDrawerOpen || false}
+        onClose={toggleDrawer}
+        direction='right'
+        className='mt-[100px]  min-h-[90vh] bg-white'
+        size={400}
+        zIndex={1000000}
+       
+      >
+        <div>{children}</div>
+      </Drawer>
+    </>
+  );
+};
 
-export default RightDrawer
+export default RightDrawer;

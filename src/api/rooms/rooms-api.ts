@@ -22,6 +22,15 @@ export const getParticularRoomDetails = async (roomId: number) => {
     }
 }
 
+export const updateSeatInfo = async (seatID : any,data : any) => {
+    try {
+        const response = await API.put(`seatMng/seat/${seatID}`, data)
+        return response
+    } catch (error) {
+        return error
+    }
+}
+
 export const createRoom = async (data: any) => {
     try {
         const response = await API.post('/room', data)
