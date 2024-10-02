@@ -1,4 +1,5 @@
 import { API } from "@/providers/request"
+import axios from 'axios';
 
 export const getAllRooms = async () => {
     try {
@@ -22,18 +23,19 @@ export const getParticularRoomDetails = async (roomId: number) => {
     }
 }
 
-export const updateSeatInfo = async (seatID : any,data : any) => {
+export const updateSeatInfo = async (seatNumber: string, data: { seatNumber: string, price: number }) => {
     try {
-        const response = await API.put(`seatMng/seat/${seatID}`, data)
-        return response
+        const response = await API.put(`/seatMng/seat/${seatNumber}`, data);
+        return response.data;
     } catch (error) {
-        return error
+        console.error('Error in updateSeatInfo:', error);
+        throw error;
     }
-}
+};
 
 export const createRoom = async (data: any) => {
     try {
-        const response = await API.post('/room', data)
+        const response = await API.post('/seatMng/room', data)
         return (response.data, response.status)
     } catch (error) {
         return error
